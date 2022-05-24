@@ -82,6 +82,9 @@ int CALLBACK WinMain(HINSTANCE hInst,HINSTANCE hPrevInst,LPSTR args,int ncmdshow
 LRESULT CALLBACK Windowprocedure(HWND hWnd,UINT msg,
 WPARAM wp,LPARAM lp){
     int ival_msgbox;
+    long long int a;
+    long long int b;
+    int c = 1;
     switch (msg)
     {
     case WM_COMMAND:
@@ -92,46 +95,46 @@ WPARAM wp,LPARAM lp){
                 DestroyWindow(hWnd);
             }
             break;
-            case FILE_MENU_NEW:
-                displaydialog(hWnd);
-                MessageBeep(MB_ICONINFORMATION);
-                break;
-            case GENERATE_BUTTON:
-                char name[100],age[100],out[200];
-                GetWindowTextA(hName,name,100);
-                GetWindowTextA(hAge,age,100);
-                if(strcmp(name,"")==0 || strcmp(age,"")==0){
-                    ival_msgbox= MessageBoxW(hWnd,L"pls enter stuff",NULL,MB_ABORTRETRYIGNORE);
-                    switch (ival_msgbox)
-                    {
-                    case IDABORT:
-                        DestroyWindow(hWnd);
-                        break;
-                    case IDRETRY:
-                    return 0;
-                    break;
-                    case IDIGNORE:
-                        break;
-                    
-                }
-            case OPEN_FILE:
-                open_file(hWnd);
-                break;
-
-            case SAVE_FILE:
-                save_file(hWnd);
-                break;
-                }
-            strcpy(out,name);
-            strcat(out," is ");
-            strcat(out,age);
-            strcat(out," years old. ");
-            SetWindowTextA(hOut,out);
+            case ONE:
+            
+            SetWindowLong(hInput,1,1);
+            
+            
             break;
+            case TWO:
+            break;
+            case THREE:
+            break;
+            case FOUR:
+            break;
+            case FIVE:
+            break;
+            case SIX:
+            break;
+            case SEVEN:
+            break;
+            case EIGHT:
+            break;
+            case NINE:
+            break;
+            case ZERO:
+            break;
+            case PLUS_BTN:
+            break;
+            case MINUS_BTN:
+            break;
+            case MULTIPLY_BTN:
+            break;
+            case DIVIDE_BTN:
+            break;
+            case ENTER_BTN:
+            break;
+            case PERIOD:
+            break;
+
         }
         break;
     case WM_CREATE:
-        
         addmenus(hWnd);
         Addcontrols(hWnd);
         break;
@@ -169,7 +172,7 @@ void  Addcontrols(HWND hWnd){
     
     CreateWindowW(L"Static",L": INPUT",WS_VISIBLE| WS_CHILD,355,55,80,38,hWnd,NULL,NULL,NULL);
     CreateWindowW(L"Static",L": OUTPUT",WS_VISIBLE| WS_CHILD,355,105,80,38,hWnd,NULL,NULL,NULL);
-    //hAge=CreateWindowW(L"edit",L"",WS_VISIBLE| WS_CHILD| WS_BORDER,200,90,98,38,hWnd,NULL,NULL,NULL);
+    
 
     CreateWindowW(L"button",L"/",WS_VISIBLE| WS_CHILD,50,170,70,50,hWnd,(HMENU)DIVIDE_BTN,NULL,NULL);
     CreateWindowW(L"button",L"*",WS_VISIBLE| WS_CHILD,125,170,70,50,hWnd,(HMENU)MULTIPLY_BTN,NULL,NULL);
@@ -290,6 +293,7 @@ void save_file(HWND hWnd){
     ofn.nFilterIndex =1;
 
     GetSaveFileName(&ofn);
+    //ignore errors
     write_file(ofn.lpstrFile);
 
 }
@@ -300,6 +304,7 @@ void write_file(char * path){
 
     int __size =GetWindowTextLength(hOpenFile);
     char * data = new char[__size+1];
+    //ignire errors
     GetWindowText(hOpenFile,data,__size+1);
 
     fwrite(data,__size+1,1,file);
