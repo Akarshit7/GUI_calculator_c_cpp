@@ -91,6 +91,7 @@ WPARAM wp,LPARAM lp){
     long long int iInput=0;
     long long int iTemprary=0;
     long long int iOutput=0;
+    int first_char;  //for multiplication button
     switch (msg)
     {
     case WM_COMMAND:
@@ -168,6 +169,24 @@ WPARAM wp,LPARAM lp){
                 SetWindowTextA(hOutput,intermediate_array);
             break;
             case MULTIPLY_BTN:
+                set_input_text("",curr);   //important step
+                SetWindowTextA(hInput,"");
+                GetWindowTextA(hOutput,to_optput,100);
+                iInput=charTointeger(curr);
+                iOutput=charTointeger(to_optput);
+                first_char=to_optput[0];    //to_output has null character
+                if (iOutput==0 and first_char==0){
+                    iTemprary=iInput;
+                }
+                else{
+                    iTemprary=iOutput*iInput;
+                }
+                //std::cout<<iTemprary<<std::endl;
+                delete [] intermediate_array;
+                intermediate_array = convertIntegerToChar(iTemprary);
+                //strcpy(intermediate_,curr);
+                SetWindowTextA(hOutput,intermediate_array);
+
             break;
             case DIVIDE_BTN:
             break;
