@@ -189,6 +189,23 @@ WPARAM wp,LPARAM lp){
 
             break;
             case DIVIDE_BTN:
+                set_input_text("",curr);   //important step
+                SetWindowTextA(hInput,"");
+                GetWindowTextA(hOutput,to_optput,100);
+                iInput=charTointeger(curr);
+                iOutput=charTointeger(to_optput);
+                first_char=to_optput[0];    //to_output has null character
+                if (iOutput==0 and first_char==0){
+                    iTemprary=iInput;
+                }
+                else{
+                    iTemprary=iOutput/iInput;
+                }
+                //std::cout<<iTemprary<<std::endl;
+                delete [] intermediate_array;
+                intermediate_array = convertIntegerToChar(iTemprary);
+                //strcpy(intermediate_,curr);
+                SetWindowTextA(hOutput,intermediate_array);
             break;
             case ENTER_BTN:
             break;
@@ -438,6 +455,7 @@ char* convertIntegerToChar(int N)
         // digit from the number
         N /= 10;
     }
+    //for adding "-" character in starting of negative output
     if(was_negative){
       strcat(arr1,"-");
       index=index+1;
