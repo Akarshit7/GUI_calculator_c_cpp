@@ -161,7 +161,7 @@ WPARAM wp,LPARAM lp){
                 else{
                     iTemprary=iOutput-iInput;
                 }
-                std::cout<<iTemprary<<std::endl;
+                //std::cout<<iTemprary<<std::endl;
                 delete [] intermediate_array;
                 intermediate_array = convertIntegerToChar(iTemprary);
                 //strcpy(intermediate_,curr);
@@ -379,7 +379,11 @@ char* convertIntegerToChar(int N)
 {
  
     // Count digits in number N
-    
+    bool was_negative=false;
+    if(N<0){
+        N=N*(-1);
+        was_negative=true;
+    }
     int m = N;
     int digit = 0;
     while (m) {
@@ -414,6 +418,10 @@ char* convertIntegerToChar(int N)
         // Truncate the last
         // digit from the number
         N /= 10;
+    }
+    if(was_negative){
+      strcat(arr1,"-");
+      index=index+1;
     }
  
     // Reverse the array for result
