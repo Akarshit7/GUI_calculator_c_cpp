@@ -43,7 +43,9 @@ void open_file(HWND);
 void display_file(char* path);
 void save_file(HWND hWnd);
 void write_file(char * path);
-void setting_input_text(char*,char curr[]);
+void set_input_text(char*,char curr[]);
+int charTointeger(char out[]);
+char* convertIntegerToChar(int N);
 HMENU hMenu;
 HWND hName,hAge,hOut,hMainWindow,hOpenFile;
 HWND hInput,hOutput;
@@ -84,7 +86,11 @@ LRESULT CALLBACK Windowprocedure(HWND hWnd,UINT msg,
 WPARAM wp,LPARAM lp){
     int ival_msgbox;
     char curr[100];
-    char to_optput[100];
+    char to_optput[100]={'0'};
+    char* intermediate_array;
+    long long int iInput=0;
+    long long int iTemprary=0;
+    long long int iOutput=0;
     switch (msg)
     {
     case WM_COMMAND:
@@ -96,49 +102,65 @@ WPARAM wp,LPARAM lp){
             }
             break;
             case ONE:
-            setting_input_text("1",curr);
+            set_input_text("1",curr);
             //std::cout<<curr<<std::endl;
             break;
             case TWO:
-            setting_input_text("2",curr);
+            set_input_text("2",curr);
              //std::cout<<curr<<std::endl;
             break;
             case THREE:
-            setting_input_text("3",curr);
+            set_input_text("3",curr);
              //std::cout<<curr<<std::endl;
             break;
             case FOUR:
-            setting_input_text("4",curr);
+            set_input_text("4",curr);
             break;
             case FIVE:
-            setting_input_text("5",curr);
+            set_input_text("5",curr);
             break;
             case SIX:
-            setting_input_text("6",curr);
+            set_input_text("6",curr);
             break;
             case SEVEN:
-            setting_input_text("7",curr);
+            set_input_text("7",curr);
             break;
             case EIGHT:
-            setting_input_text("8",curr);
+            set_input_text("8",curr);
             break;
             case NINE:
-            setting_input_text("9",curr);
+            set_input_text("9",curr);
             break;
             case ZERO:
-            setting_input_text("0",curr);
+            set_input_text("0",curr);
             break;
             case PLUS_BTN:
-                setting_input_text("",curr);
-                strcpy(to_optput,curr);
-
+                set_input_text("",curr);   //important step
                 SetWindowTextA(hInput,"");
-                SetWindowTextA(hOutput,to_optput);
-                
-                
-                
+                GetWindowTextA(hOutput,to_optput,100);
+                iInput=charTointeger(curr);
+                iOutput=charTointeger(to_optput);
+                //std::cout<<iInput<<" "<<iOutput<<std::endl;
+                iTemprary=iOutput+iInput;
+                //std::cout<<iTemprary<<std::endl;
+                delete [] intermediate_array;
+                intermediate_array = convertIntegerToChar(iTemprary);
+                //strcpy(intermediate_,curr);
+                SetWindowTextA(hOutput,intermediate_array);
             break;
             case MINUS_BTN:
+                set_input_text("",curr);   //important step
+                SetWindowTextA(hInput,"");
+                GetWindowTextA(hOutput,to_optput,100);
+                iInput=charTointeger(curr);
+                iOutput=charTointeger(to_optput);
+                //std::cout<<iInput<<" "<<iOutput<<std::endl;
+                iTemprary=iOutput-iInput;
+                //std::cout<<iTemprary<<std::endl;
+                delete [] intermediate_array;
+                intermediate_array = convertIntegerToChar(iTemprary);
+                //strcpy(intermediate_,curr);
+                SetWindowTextA(hOutput,intermediate_array);
             break;
             case MULTIPLY_BTN:
             break;
@@ -329,8 +351,74 @@ void write_file(char * path){
     fclose(file);
 }
 
-void setting_input_text(char* a,char curr1[]){
+void set_input_text(char* a,char curr1[]){
             GetWindowTextA(hInput,curr1,100);
             strcat(curr1,a);
             SetWindowTextA(hInput,curr1);
+}
+
+
+int charTointeger(char out[])
+{
+    long long int temp = 0;
+    long long int len = strlen(out);
+    for (int i = 0; i <len ; i++) {
+        temp = temp * 10 + (out[i] - '0');
+    }
+    //std::cout<<out<<" "<<len<<std::endl;
+    //std::cout<<temp<<std::endl;
+    return temp;
+}
+
+char* convertIntegerToChar(int N)
+{
+ 
+    // Count digits in number N
+    int m = N;
+    int digit = 0;
+    while (m) {
+ 
+        // Increment number of digits
+        digit++;
+ 
+        // Truncate the last
+        // digit from the number
+        m /= 10;
+    }
+ 
+    // Declare char array for result
+    char* arr;
+ 
+    // Declare duplicate char array
+    char arr1[digit];
+ 
+    // Memory allocation of array
+    arr = new char[digit];
+ 
+    // Separating integer into digits and
+    // accommodate it to character array
+    int index = 0;
+    while (N) {
+ 
+        // Separate last digit from
+        // the number and add ASCII
+        // value of character '0' is 48
+        arr1[++index] = N % 10 + '0';
+ 
+        // Truncate the last
+        // digit from the number
+        N /= 10;
+    }
+ 
+    // Reverse the array for result
+    int i;
+    for (i = 0; i < index; i++) {
+        arr[i] = arr1[index - i];
+    }
+ 
+    // Char array truncate by null
+    arr[i] = '\0';
+ 
+    // Return char array
+    return (char*)arr;
 }
