@@ -1,55 +1,11 @@
-#include<windows.h>
-#include<cstring>
-#include <iostream>
-#include<stdio.h>
-#define FILE_MENU_NEW 1
-#define FILE_MENU_OPEN 2
-#define FILE_MENU_EXIT 3
-#define GENERATE_BUTTON 4
-#define OPEN_FILE 5
-#define SAVE_FILE 6
-#define ONE 11
-#define TWO 12
-#define THREE 13
-#define FOUR 14
-#define FIVE 15 
-#define SIX 16
-#define SEVEN 17
-#define EIGHT 18
-#define NINE 19
-#define PLUS_BTN 21
-#define MINUS_BTN 22
-#define MULTIPLY_BTN 23
-#define DIVIDE_BTN 24
-#define ENTER_BTN 25
-#define ZERO 20
-#define PERIOD 26
+#include "header_file.h"
 
 
 
 
-
-
-
-
-LRESULT CALLBACK Windowprocedure(HWND,UINT,
-WPARAM,LPARAM);
-LRESULT CALLBACK Dialogprocedure(HWND,UINT,WPARAM,LPARAM);
-void registerDialogClass(HINSTANCE);
-void displaydialog(HWND);
-void addmenus(HWND);
-void Addcontrols(HWND);
-void open_file(HWND);
-void display_file(char* path);
-void save_file(HWND hWnd);
-void write_file(char * path);
-void set_input_text(char*,char curr[]);
-int charTointeger(char out[]);
-char* convertIntegerToChar(int N);
 HMENU hMenu;
 HWND hName,hAge,hOut,hMainWindow,hOpenFile;
-HWND hInput,hOutput;
-
+HWND hOutput,hInput;
 
 int CALLBACK WinMain(HINSTANCE hInst,HINSTANCE hPrevInst,LPSTR args,int ncmdshow){
     //std::string a="hello";
@@ -207,7 +163,10 @@ WPARAM wp,LPARAM lp){
                 //strcpy(intermediate_,curr);
                 SetWindowTextA(hOutput,intermediate_array);
             break;
-            case ENTER_BTN:
+            case CLR_BTN:
+            SetWindowTextA(hOutput,"");
+            SetWindowTextA(hInput,"");
+
             break;
             case PERIOD:
             break;
@@ -274,7 +233,7 @@ void  Addcontrols(HWND hWnd){
     CreateWindowW(L"button",L".",WS_VISIBLE| WS_CHILD,200,390,70,50,hWnd,(HMENU)PERIOD,NULL,NULL);
 
     CreateWindowW(L"button",L"+",WS_VISIBLE| WS_CHILD,275,170,70,105,hWnd,(HMENU)PLUS_BTN,NULL,NULL);
-    CreateWindowW(L"button",L"Enter",WS_VISIBLE| WS_CHILD,275,280,70,160,hWnd,(HMENU)ENTER_BTN,NULL,NULL);
+    CreateWindowW(L"button",L"All clear",WS_VISIBLE| WS_CHILD,275,280,70,160,hWnd,(HMENU)CLR_BTN,NULL,NULL);
 }
 
 LRESULT CALLBACK DialogProcedure(HWND hWnd,UINT msg,WPARAM wp,LPARAM lp){
@@ -396,80 +355,4 @@ void set_input_text(char* a,char curr1[]){
             GetWindowTextA(hInput,curr1,100);
             strcat(curr1,a);
             SetWindowTextA(hInput,curr1);
-}
-
-
-int charTointeger(char out[])
-{
-    long long int temp = 0;
-    long long int len = strlen(out);
-    for (int i = 0; i <len ; i++) {
-        temp = temp * 10 + (out[i] - '0');
-    }
-    //std::cout<<out<<" "<<len<<std::endl;
-    //std::cout<<temp<<std::endl;
-    return temp;
-}
-
-char* convertIntegerToChar(int N)
-{
- 
-    // Count digits in number N
-    bool was_negative=false;
-    if(N<0){
-        N=N*(-1);
-        was_negative=true;
-    }
-    int m = N;
-    int digit = 0;
-    while (m) {
- 
-        // Increment number of digits
-        digit++;
- 
-        // Truncate the last
-        // digit from the number
-        m /= 10;
-    }
- 
-    // Declare char array for result
-    char* arr;
- 
-    // Declare duplicate char array
-    char arr1[digit];
- 
-    // Memory allocation of array
-    arr = new char[digit];
- 
-    // Separating integer into digits and
-    // accommodate it to character array
-    int index = 0;
-    while (N) {
- 
-        // Separate last digit from
-        // the number and add ASCII
-        // value of character '0' is 48
-        arr1[++index] = N % 10 + '0';
- 
-        // Truncate the last
-        // digit from the number
-        N /= 10;
-    }
-    //for adding "-" character in starting of negative output
-    if(was_negative){
-      strcat(arr1,"-");
-      index=index+1;
-    }
- 
-    // Reverse the array for result
-    int i;
-    for (i = 0; i < index; i++) {
-        arr[i] = arr1[index - i];
-    }
- 
-    // Char array truncate by null
-    arr[i] = '\0';
- 
-    // Return char array
-    return (char*)arr;
 }
