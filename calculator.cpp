@@ -1,5 +1,5 @@
 #include<windows.h>
-#include<string>
+#include<cstring>
 #include <iostream>
 #include<stdio.h>
 #define FILE_MENU_NEW 1
@@ -83,11 +83,8 @@ int CALLBACK WinMain(HINSTANCE hInst,HINSTANCE hPrevInst,LPSTR args,int ncmdshow
 LRESULT CALLBACK Windowprocedure(HWND hWnd,UINT msg,
 WPARAM wp,LPARAM lp){
     int ival_msgbox;
-    long long int a;
-    long long int b;
-    int c = 1;
     char curr[100];
-    char to_opuput[100];
+    char to_optput[100];
     switch (msg)
     {
     case WM_COMMAND:
@@ -100,12 +97,15 @@ WPARAM wp,LPARAM lp){
             break;
             case ONE:
             setting_input_text("1",curr);
+            //std::cout<<curr<<std::endl;
             break;
             case TWO:
             setting_input_text("2",curr);
+             //std::cout<<curr<<std::endl;
             break;
             case THREE:
             setting_input_text("3",curr);
+             //std::cout<<curr<<std::endl;
             break;
             case FOUR:
             setting_input_text("4",curr);
@@ -129,6 +129,13 @@ WPARAM wp,LPARAM lp){
             setting_input_text("0",curr);
             break;
             case PLUS_BTN:
+                setting_input_text("",curr);
+                strcpy(to_optput,curr);
+
+                SetWindowTextA(hInput,"");
+                SetWindowTextA(hOutput,to_optput);
+                
+                
                 
             break;
             case MINUS_BTN:
@@ -322,8 +329,8 @@ void write_file(char * path){
     fclose(file);
 }
 
-void setting_input_text(char* a,char curr[]){
-            GetWindowTextA(hInput,curr,100);
-            strcat(curr,a);
-            SetWindowTextA(hInput,curr);
+void setting_input_text(char* a,char curr1[]){
+            GetWindowTextA(hInput,curr1,100);
+            strcat(curr1,a);
+            SetWindowTextA(hInput,curr1);
 }
