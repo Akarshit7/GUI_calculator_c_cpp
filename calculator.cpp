@@ -149,6 +149,10 @@ WPARAM wp,LPARAM lp){
                 SetWindowTextA(hInput,"");
                 GetWindowTextA(hOutput,to_optput,100);
                 iInput=charTointeger(curr);
+                if(iInput==0){
+                    MessageBoxA(hWnd,"Pls enter some value","Warning", MB_ICONEXCLAMATION| MB_ICONERROR);
+                    break;
+                }
                 iOutput=charTointeger(to_optput);
                 first_char=to_optput[0];    //to_output has null character
                 if (iOutput==0 and first_char==0){
