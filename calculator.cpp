@@ -426,6 +426,10 @@ char* convertIntegerToChar(int N)
         // digit from the number
         N /= 10;
     }
+    if(was_negative){
+      strcat(arr1,"-");
+      index=index+1;
+    }
  
     // Reverse the array for result
     int i;
