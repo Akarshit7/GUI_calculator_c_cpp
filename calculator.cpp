@@ -153,9 +153,13 @@ WPARAM wp,LPARAM lp){
                 GetWindowTextA(hOutput,to_optput,100);
                 iInput=charTointeger(curr);
                 iOutput=charTointeger(to_optput);
-                //std::cout<<iInput<<" "<<iOutput<<std::endl;
-                iTemprary=iOutput-iInput;
-                //std::cout<<iTemprary<<std::endl;
+                if (iOutput==0){
+                    iTemprary=iInput;
+                }
+                else{
+                    iTemprary=iOutput-iInput;
+                }
+                std::cout<<iTemprary<<std::endl;
                 delete [] intermediate_array;
                 intermediate_array = convertIntegerToChar(iTemprary);
                 //strcpy(intermediate_,curr);
@@ -382,6 +386,7 @@ char* convertIntegerToChar(int N)
 {
  
     // Count digits in number N
+    
     int m = N;
     int digit = 0;
     while (m) {
