@@ -94,6 +94,7 @@ WPARAM wp,LPARAM lp){
     long long int iInput=0;
     long long int iTemprary=0;
     long long int iOutput=0;
+    char first_char;
     switch (msg)
     {
     case WM_COMMAND:
@@ -177,7 +178,7 @@ WPARAM wp,LPARAM lp){
                 GetWindowTextA(hOutput,to_optput,100);
                 iInput=charTointeger(curr);
                 iOutput=charTointeger(to_optput);
-                char first_char;
+                
                 first_char=to_optput[0];    //to_output has null character
                 if (iOutput==0 and first_char==0){
                     iTemprary=iInput;
