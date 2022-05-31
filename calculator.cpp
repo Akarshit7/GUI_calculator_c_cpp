@@ -85,6 +85,8 @@ WPARAM wp,LPARAM lp){
     long long int a;
     long long int b;
     int c = 1;
+    char curr[100];
+    char to_opuput[100];
     switch (msg)
     {
     case WM_COMMAND:
@@ -96,14 +98,13 @@ WPARAM wp,LPARAM lp){
             }
             break;
             case ONE:
-            
-            SetWindowLong(hInput,1,1);
-            
-            
+            setting_input_text("1",curr);
             break;
             case TWO:
+            setting_input_text("2",curr);
             break;
             case THREE:
+            setting_input_text("3",curr);
             break;
             case FOUR:
             break;
@@ -120,6 +121,7 @@ WPARAM wp,LPARAM lp){
             case ZERO:
             break;
             case PLUS_BTN:
+                
             break;
             case MINUS_BTN:
             break;
@@ -319,4 +321,10 @@ void write_file(char * path){
     fwrite(data,__size+1,1,file);
 
     fclose(file);
+}
+
+void setting_input_text(char* a,char curr[]){
+            GetWindowTextA(hInput,curr,100);
+            strcat(curr,a);
+            SetWindowTextA(hInput,curr);
 }
