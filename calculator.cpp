@@ -136,12 +136,30 @@ WPARAM wp,LPARAM lp){
                 strcpy(to_optput,curr);
 
                 SetWindowTextA(hInput,"");
-                SetWindowTextA(hOutput,to_optput);
-                
-                
-                
+                GetWindowTextA(hOutput,to_optput,100);
+                iInput=charTointeger(curr);
+                iOutput=charTointeger(to_optput);
+                //std::cout<<iInput<<" "<<iOutput<<std::endl;
+                iTemprary=iOutput+iInput;
+                //std::cout<<iTemprary<<std::endl;
+                delete [] intermediate_array;
+                intermediate_array = convertIntegerToChar(iTemprary);
+                //strcpy(intermediate_,curr);
+                SetWindowTextA(hOutput,intermediate_array);
             break;
             case MINUS_BTN:
+                set_input_text("",curr);   //important step
+                SetWindowTextA(hInput,"");
+                GetWindowTextA(hOutput,to_optput,100);
+                iInput=charTointeger(curr);
+                iOutput=charTointeger(to_optput);
+                //std::cout<<iInput<<" "<<iOutput<<std::endl;
+                iTemprary=iOutput-iInput;
+                //std::cout<<iTemprary<<std::endl;
+                delete [] intermediate_array;
+                intermediate_array = convertIntegerToChar(iTemprary);
+                //strcpy(intermediate_,curr);
+                SetWindowTextA(hOutput,intermediate_array);
             break;
             case MULTIPLY_BTN:
             break;
@@ -345,4 +363,70 @@ void setting_input_text(char* a,char curr1[]){
             GetWindowTextA(hInput,curr1,100);
             strcat(curr1,a);
             SetWindowTextA(hInput,curr1);
+}
+
+
+int charTointeger(char out[])
+{
+    long long int temp = 0;
+    long long int len = strlen(out);
+    for (int i = 0; i <len ; i++) {
+        temp = temp * 10 + (out[i] - '0');
+    }
+    //std::cout<<out<<" "<<len<<std::endl;
+    //std::cout<<temp<<std::endl;
+    return temp;
+}
+
+char* convertIntegerToChar(int N)
+{
+ 
+    // Count digits in number N
+    int m = N;
+    int digit = 0;
+    while (m) {
+ 
+        // Increment number of digits
+        digit++;
+ 
+        // Truncate the last
+        // digit from the number
+        m /= 10;
+    }
+ 
+    // Declare char array for result
+    char* arr;
+ 
+    // Declare duplicate char array
+    char arr1[digit];
+ 
+    // Memory allocation of array
+    arr = new char[digit];
+ 
+    // Separating integer into digits and
+    // accommodate it to character array
+    int index = 0;
+    while (N) {
+ 
+        // Separate last digit from
+        // the number and add ASCII
+        // value of character '0' is 48
+        arr1[++index] = N % 10 + '0';
+ 
+        // Truncate the last
+        // digit from the number
+        N /= 10;
+    }
+ 
+    // Reverse the array for result
+    int i;
+    for (i = 0; i < index; i++) {
+        arr[i] = arr1[index - i];
+    }
+ 
+    // Char array truncate by null
+    arr[i] = '\0';
+ 
+    // Return char array
+    return (char*)arr;
 }
