@@ -43,6 +43,7 @@ void open_file(HWND);
 void display_file(char* path);
 void save_file(HWND hWnd);
 void write_file(char * path);
+void setting_input_text(char*,char curr[]);
 HMENU hMenu;
 HWND hName,hAge,hOut,hMainWindow,hOpenFile;
 HWND hInput,hOutput;
@@ -86,7 +87,7 @@ WPARAM wp,LPARAM lp){
     long long int b;
     int c = 1;
     char curr[100];
-    char to_opuput[100];
+    char to_optput[100];
     switch (msg)
     {
     case WM_COMMAND:
@@ -99,28 +100,45 @@ WPARAM wp,LPARAM lp){
             break;
             case ONE:
             setting_input_text("1",curr);
+            //std::cout<<curr<<std::endl;
             break;
             case TWO:
             setting_input_text("2",curr);
+             //std::cout<<curr<<std::endl;
             break;
             case THREE:
             setting_input_text("3",curr);
+             //std::cout<<curr<<std::endl;
             break;
             case FOUR:
+            setting_input_text("4",curr);
             break;
             case FIVE:
+            setting_input_text("5",curr);
             break;
             case SIX:
+            setting_input_text("6",curr);
             break;
             case SEVEN:
+            setting_input_text("7",curr);
             break;
             case EIGHT:
+            setting_input_text("8",curr);
             break;
             case NINE:
+            setting_input_text("9",curr);
             break;
             case ZERO:
+            setting_input_text("0",curr);
             break;
             case PLUS_BTN:
+                setting_input_text("",curr);
+                strcpy(to_optput,curr);
+
+                SetWindowTextA(hInput,"");
+                SetWindowTextA(hOutput,to_optput);
+                
+                
                 
             break;
             case MINUS_BTN:
@@ -323,8 +341,8 @@ void write_file(char * path){
     fclose(file);
 }
 
-void setting_input_text(char* a,char curr[]){
-            GetWindowTextA(hInput,curr,100);
-            strcat(curr,a);
-            SetWindowTextA(hInput,curr);
+void setting_input_text(char* a,char curr1[]){
+            GetWindowTextA(hInput,curr1,100);
+            strcat(curr1,a);
+            SetWindowTextA(hInput,curr1);
 }
