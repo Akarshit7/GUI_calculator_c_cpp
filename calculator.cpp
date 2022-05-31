@@ -87,7 +87,11 @@ WPARAM wp,LPARAM lp){
     long long int b;
     int c = 1;
     char curr[100];
-    char to_optput[100];
+    char to_optput[100]={'0'};
+    char* intermediate_array;
+    long long int iInput=0;
+    long long int iTemprary=0;
+    long long int iOutput=0;
     switch (msg)
     {
     case WM_COMMAND:
