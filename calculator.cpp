@@ -1,5 +1,5 @@
 #include<windows.h>
-#include<string>
+#include<cstring>
 #include <iostream>
 #include<stdio.h>
 #define FILE_MENU_NEW 1
@@ -43,7 +43,9 @@ void open_file(HWND);
 void display_file(char* path);
 void save_file(HWND hWnd);
 void write_file(char * path);
-void setting_input_text(char*,char curr[]);
+void set_input_text(char*,char curr[]);
+int charTointeger(char out[]);
+char* convertIntegerToChar(int N);
 HMENU hMenu;
 HWND hName,hAge,hOut,hMainWindow,hOpenFile;
 HWND hInput,hOutput;
@@ -390,7 +392,11 @@ char* convertIntegerToChar(int N)
 {
  
     // Count digits in number N
-    
+    bool was_negative=false;
+    if(N<0){
+        N=N*(-1);
+        was_negative=true;
+    }
     int m = N;
     int digit = 0;
     while (m) {
@@ -426,6 +432,7 @@ char* convertIntegerToChar(int N)
         // digit from the number
         N /= 10;
     }
+    //for adding "-" character in starting of negative output
     if(was_negative){
       strcat(arr1,"-");
       index=index+1;
