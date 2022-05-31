@@ -92,114 +92,31 @@ WPARAM wp,LPARAM lp){
                 DestroyWindow(hWnd);
             }
             break;
-            case ONE:
-            set_input_text("1",curr);
-            //std::cout<<curr<<std::endl;
-            break;
-            case TWO:
-            set_input_text("2",curr);
-             //std::cout<<curr<<std::endl;
-            break;
-            case THREE:
-            set_input_text("3",curr);
-             //std::cout<<curr<<std::endl;
-            break;
-            case FOUR:
-            set_input_text("4",curr);
-            break;
-            case FIVE:
-            set_input_text("5",curr);
-            break;
-            case SIX:
-            set_input_text("6",curr);
-            break;
-            case SEVEN:
-            set_input_text("7",curr);
-            break;
-            case EIGHT:
-            set_input_text("8",curr);
-            break;
-            case NINE:
-            set_input_text("9",curr);
-            break;
-            case ZERO:
-            set_input_text("0",curr);
-            break;
-            case PLUS_BTN:
-                set_input_text("",curr);   //important step
-                SetWindowTextA(hInput,"");
-                GetWindowTextA(hOutput,to_optput,100);
-                iInput=charTointeger(curr);
-                iOutput=charTointeger(to_optput);
-                //std::cout<<iInput<<" "<<iOutput<<std::endl;
-                iTemprary=iOutput+iInput;
-                //std::cout<<iTemprary<<std::endl;
-                delete [] intermediate_array;
-                intermediate_array = convertIntegerToChar(iTemprary);
-                //strcpy(intermediate_,curr);
-                SetWindowTextA(hOutput,intermediate_array);
-                
-            break;
-            case MINUS_BTN:
-                set_input_text("",curr);   //important step
-                SetWindowTextA(hInput,"");
-                GetWindowTextA(hOutput,to_optput,100);
-                iInput=charTointeger(curr);
-                iOutput=charTointeger(to_optput);
-                if (iOutput==0){
-                    iTemprary=iInput;
+            case FILE_MENU_NEW:
+                displaydialog(hWnd);
+                MessageBeep(MB_ICONINFORMATION);
+                break;
+            case GENERATE_BUTTON:
+                char name[100],age[100],out[200];
+                GetWindowTextA(hName,name,100);
+                GetWindowTextA(hAge,age,100);
+                if(strcmp(name,"")==0 || strcmp(age,"")==0){
+                    ival_msgbox= MessageBoxW(hWnd,L"pls enter stuff",NULL,MB_ABORTRETRYIGNORE);
+                    switch (ival_msgbox)
+                    {
+                    case IDABORT:
+                        DestroyWindow(hWnd);
+                        break;
+                    case IDRETRY:
+                    return 0;
+                    break;
+                    case IDIGNORE:
+                        break;
+                    
                 }
-                else{
-                    iTemprary=iOutput-iInput;
-                }
-                //std::cout<<iTemprary<<std::endl;
-                delete [] intermediate_array;
-                intermediate_array = convertIntegerToChar(iTemprary);
-                //strcpy(intermediate_,curr);
-                SetWindowTextA(hOutput,intermediate_array);
-            break;
-            case MULTIPLY_BTN:
-                set_input_text("",curr);   //important step
-                SetWindowTextA(hInput,"");
-                GetWindowTextA(hOutput,to_optput,100);
-                iInput=charTointeger(curr);
-                iOutput=charTointeger(to_optput);
-                first_char=to_optput[0];    //to_output has null character
-                if (iOutput==0 and first_char==0){
-                    iTemprary=iInput;
-                }
-                else{
-                    iTemprary=iOutput*iInput;
-                }
-                //std::cout<<iTemprary<<std::endl;
-                delete [] intermediate_array;
-                intermediate_array = convertIntegerToChar(iTemprary);
-                //strcpy(intermediate_,curr);
-                SetWindowTextA(hOutput,intermediate_array);
-
-            break;
-            case DIVIDE_BTN:
-                set_input_text("",curr);   //important step
-                SetWindowTextA(hInput,"");
-                GetWindowTextA(hOutput,to_optput,100);
-                iInput=charTointeger(curr);
-                iOutput=charTointeger(to_optput);
-                first_char=to_optput[0];    //to_output has null character
-                if (iOutput==0 and first_char==0){
-                    iTemprary=iInput;
-                }
-                else{
-                    iTemprary=iOutput/iInput;
-                }
-                //std::cout<<iTemprary<<std::endl;
-                delete [] intermediate_array;
-                intermediate_array = convertIntegerToChar(iTemprary);
-                //strcpy(intermediate_,curr);
-                SetWindowTextA(hOutput,intermediate_array);
-            break;
-            case CLR_BTN:
-            SetWindowTextA(hOutput,"");
-            SetWindowTextA(hInput,"");
+            case OPEN_FILE:
+                open_file(hWnd);
+                break;
 
             case SAVE_FILE:
                 save_file(hWnd);
