@@ -105,40 +105,40 @@ WPARAM wp,LPARAM lp){
             }
             break;
             case ONE:
-            setting_input_text("1",curr);
+            set_input_text("1",curr);
             //std::cout<<curr<<std::endl;
             break;
             case TWO:
-            setting_input_text("2",curr);
+            set_input_text("2",curr);
              //std::cout<<curr<<std::endl;
             break;
             case THREE:
-            setting_input_text("3",curr);
+            set_input_text("3",curr);
              //std::cout<<curr<<std::endl;
             break;
             case FOUR:
-            setting_input_text("4",curr);
+            set_input_text("4",curr);
             break;
             case FIVE:
-            setting_input_text("5",curr);
+            set_input_text("5",curr);
             break;
             case SIX:
-            setting_input_text("6",curr);
+            set_input_text("6",curr);
             break;
             case SEVEN:
-            setting_input_text("7",curr);
+            set_input_text("7",curr);
             break;
             case EIGHT:
-            setting_input_text("8",curr);
+            set_input_text("8",curr);
             break;
             case NINE:
-            setting_input_text("9",curr);
+            set_input_text("9",curr);
             break;
             case ZERO:
-            setting_input_text("0",curr);
+            set_input_text("0",curr);
             break;
             case PLUS_BTN:
-                setting_input_text("",curr);
+                set_input_text("",curr);
                 strcpy(to_optput,curr);
 
                 SetWindowTextA(hInput,"");
@@ -177,6 +177,7 @@ WPARAM wp,LPARAM lp){
                 GetWindowTextA(hOutput,to_optput,100);
                 iInput=charTointeger(curr);
                 iOutput=charTointeger(to_optput);
+                char first_char;
                 first_char=to_optput[0];    //to_output has null character
                 if (iOutput==0 and first_char==0){
                     iTemprary=iInput;
@@ -213,17 +214,6 @@ WPARAM wp,LPARAM lp){
             case ENTER_BTN:
             break;
             case PERIOD:
-            break;
-
-            case SAVE_FILE:
-                save_file(hWnd);
-                break;
-                }
-            strcpy(out,name);
-            strcat(out," is ");
-            strcat(out,age);
-            strcat(out," years old. ");
-            SetWindowTextA(hOut,out);
             break;
         }
         break;
@@ -404,7 +394,7 @@ void write_file(char * path){
     fclose(file);
 }
 
-void setting_input_text(char* a,char curr1[]){
+void set_input_text(char* a,char curr1[]){
             GetWindowTextA(hInput,curr1,100);
             strcat(curr1,a);
             SetWindowTextA(hInput,curr1);
